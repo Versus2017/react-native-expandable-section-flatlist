@@ -13,6 +13,7 @@ import {
   ScrollView,
   LayoutAnimation,
   TouchableOpacity,
+  TouchableWithoutFeedback,
 } from 'react-native';
 
 class ExpandableList extends Component {
@@ -116,10 +117,10 @@ class ExpandableList extends Component {
 
     return (
       <View onLayout={this._itemLayout}>
-        <TouchableOpacity onPress={() => this._onPress(sectionId)}>
+        <TouchableWithoutFeedback onPress={() => this._onPress(sectionId)}>
           { renderSectionHeaderX ? renderSectionHeaderX(item[headerKey], sectionId,
               !!this.state.memberOpened.get(sectionId)) : null}
-        </TouchableOpacity>
+        </TouchableWithoutFeedback>
         <ScrollView scrollEnabled={false}>
           {
             memberArr.map((rowItem, rowId) => {
@@ -130,8 +131,8 @@ class ExpandableList extends Component {
               );
             })
           }
-          { memberArr.length > 0 && renderSectionFooterX ? renderSectionFooterX(item, sectionId) : null }
         </ScrollView>
+        { renderSectionFooterX ? renderSectionFooterX(item, sectionId) : null }
       </View>
     );
   };
