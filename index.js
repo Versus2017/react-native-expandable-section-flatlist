@@ -44,6 +44,7 @@ class ExpandableList extends Component {
     isOpen: PropTypes.bool,
     openOptions: PropTypes.array,
     rowNumberCloseMode: PropTypes.number,
+    onHeaderAction: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -51,6 +52,7 @@ class ExpandableList extends Component {
     memberKey: 'member',
     isOpen: false,
     rowNumberCloseMode: 0,
+    onHeaderAction: true,
   };
 
   _keyExtractor = (item, index) => index;
@@ -81,16 +83,22 @@ class ExpandableList extends Component {
   }
 
   _onPress = (i) => {
-    this.setState((state) => {
-      const memberOpened = new Map(state.memberOpened);
-      memberOpened.set(i, !memberOpened.get(i)); // toggle
-      return { memberOpened };
-    });
+    const { onHeaderAction } = this.props;
+    onHeaderAction && this.openMember(i)
+
     if (this.props.headerOnPress) {
       this.props.headerOnPress(i, !(!!this.state.memberOpened.get(i)));
     }
-    LayoutAnimation.easeInEaseOut();
   };
+
+  openMember (index) {
+    this.setState((state) => {
+      const memberOpened = new Map(state.memberOpened);
+      memberOpened.set(index, !memberOpened.get(index)); // toggle
+      return { memberOpened };
+    });
+    LayoutAnimation.easeInEaseOut();
+  }
 
   _itemLayout = (e) => {
     const target = e.nativeEvent.target;
