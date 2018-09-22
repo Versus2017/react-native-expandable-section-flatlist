@@ -47,6 +47,7 @@ class ExpandableList extends Component {
     onHeaderAction: PropTypes.bool,
     onViewableItemsChanged: PropTypes.func,
     onViewableRowsChanged: PropTypes.func,
+    viewabilityConfig: PropTypes.object,
   };
 
   static defaultProps = {
