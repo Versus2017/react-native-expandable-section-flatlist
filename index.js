@@ -47,7 +47,6 @@ class ExpandableList extends Component {
     onHeaderAction: PropTypes.bool,
     onViewableItemsChanged: PropTypes.func,
     onViewableRowsChanged: PropTypes.func,
-    tag: PropTypes.string,
   };
 
   static defaultProps = {
@@ -56,7 +55,6 @@ class ExpandableList extends Component {
     isOpen: false,
     rowNumberCloseMode: 0,
     onHeaderAction: true,
-    tag: 'tag',
   };
 
   _keyExtractor = (item, index) => index;
