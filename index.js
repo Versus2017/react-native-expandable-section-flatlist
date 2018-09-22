@@ -46,6 +46,8 @@ class ExpandableList extends Component {
     rowNumberCloseMode: PropTypes.number,
     onHeaderAction: PropTypes.bool,
     onViewableItemsChanged: PropTypes.func,
+    onViewableRowsChanged: PropTypes.func,
+    tag: PropTypes.string,
   };
 
   static defaultProps = {
@@ -54,6 +56,7 @@ class ExpandableList extends Component {
     isOpen: false,
     rowNumberCloseMode: 0,
     onHeaderAction: true,
+    tag: 'tag',
   };
 
   _keyExtractor = (item, index) => index;
@@ -153,10 +156,6 @@ class ExpandableList extends Component {
     return { length: offset / index, offset: offset, index };
   };
 
-  _onViewableItemsChanged = ({ viewableItems, changed }) => {
-    this.props.onViewableItemsChanged && this.props.onViewableItemsChanged(viewableItems, changed)
-  }
-
   render() {
     const { dataSource } = this.props;
     return (
@@ -164,9 +163,8 @@ class ExpandableList extends Component {
         keyExtractor={this._keyExtractor}
         extraData={this.state}
         initialNumToRender={dataSource.length || 0}
-        {...this.props}
         ref={instance => this.flatList = instance}
-        onViewableItemsChanged={this._onViewableItemsChanged}
+        {...this.props}
         getItemLayout={this._getItemLayout}
         data={dataSource}
         horizontal={false}
