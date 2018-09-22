@@ -45,6 +45,7 @@ class ExpandableList extends Component {
     openOptions: PropTypes.array,
     rowNumberCloseMode: PropTypes.number,
     onHeaderAction: PropTypes.bool,
+    onViewableItemsChanged: PropTypes.func,
   };
 
   static defaultProps = {
@@ -152,6 +153,10 @@ class ExpandableList extends Component {
     return { length: offset / index, offset: offset, index };
   };
 
+  _onViewableItemsChanged = ({ viewableItems, changed }) => {
+    this.props.onViewableItemsChanged && this.props.onViewableItemsChanged(viewableItems, changed)
+  }
+
   render() {
     const { dataSource } = this.props;
     return (
@@ -161,6 +166,7 @@ class ExpandableList extends Component {
         initialNumToRender={dataSource.length || 0}
         {...this.props}
         ref={instance => this.flatList = instance}
+        onViewableItemsChanged={this._onViewableItemsChanged}
         getItemLayout={this._getItemLayout}
         data={dataSource}
         horizontal={false}
