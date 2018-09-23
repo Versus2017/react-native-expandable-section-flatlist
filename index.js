@@ -164,7 +164,7 @@ class ExpandableList extends Component {
         initialNumToRender={dataSource.length || 0}
         ref={instance => this.flatList = instance}
         {...this.props}
-        getItemLayout={this._getItemLayout}
+        // getItemLayout={this._getItemLayout}
         data={dataSource}
         horizontal={false}
         renderItem={this._renderItem}
